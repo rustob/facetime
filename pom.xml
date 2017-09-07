@@ -40,8 +40,9 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
+            <version>6.0.6</version>
         </dependency>
+
 
         <dependency>
             <groupId>com.google.guava</groupId>
