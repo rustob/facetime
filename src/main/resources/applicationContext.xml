@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF8"?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns="http://www.springframework.org/schema/beans"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
 
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
     <!-- 扫描dao,service -->
     <context:component-scan base-package="com.tanner"/>
     <context:annotation-config/>
@@ -40,10 +43,13 @@
     <!--<property name="userMapper" ref="userMapper"></property>-->
     <!--</bean>-->
 
+
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
         <property name="basePackage" value="com.tanner"></property>
     </bean>
+
+    <tx:annotation-driven transaction-manager="txManager"></tx:annotation-driven>
 
     <!-- 事务管理  DataSourceTransactionManager-->
     <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
