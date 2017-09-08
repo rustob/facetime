@@ -14,12 +14,22 @@ public class Application {
 
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
 
+
     public static void main(String[] args) {
+        Application application = new Application();
+        application.hello();
+    }
+
+
+    public void hello() {
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         TestService userService = (TestService) context.getBean("fuckService");
-        User user = new User(23, "linuxea");
+        User user = new User(45, "linuxea");
         logger.info(user.toString());
         userService.addUser(user);
+        int i = 1 / 0;
+        User user2 = new User(46, "namw2");
+        userService.addUser(user2);
     }
 
 }
