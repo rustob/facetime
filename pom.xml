@@ -136,6 +136,14 @@
             <version>2.4.5.RELEASE</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>1.8.6.RELEASE</version>
+        </dependency>
+
+
+        <!-- for spring so on -->
 
         <dependency>
             <groupId>org.slf4j</groupId>

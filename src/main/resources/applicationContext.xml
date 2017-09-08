@@ -10,6 +10,7 @@
     <!-- 扫描dao,service -->
     <context:component-scan base-package="com.tanner"/>
     <context:annotation-config/>
+    <tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven>
 
     <!--<context:property-placeholder location="classpath:spring-jdbc.properties"/>-->
     <!-- 配置数据源 -->
@@ -31,6 +32,7 @@
         <property name="poolPreparedStatements" value="true"/>
         <property name="maxPoolPreparedStatementPerConnectionSize" value="20"/>
     </bean>
+
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"></property>
         <property name="configLocation" value="classpath:mybatis-config.xml"></property>
@@ -54,6 +56,28 @@
         <property name="dataSource" ref="dataSource"></property>
     </bean>
 
-    <tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"></tx:annotation-driven>
+
+    <!-- 连接池设置 -->
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <!--<property name="maxActive" value="${redis.maxActive}" />-->
+        <!--<property name="maxIdle" value="${redis.maxIdle}" />-->
+        <!--<property name="maxWait" value="${redis.maxWait}" />-->
+        <!--<property name="testOnBorrow" value="${redis.testOnBorrow}" />-->
+    </bean>
+
+    <!-- spring data redis -->
+    <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="usePool" value="true"></property>
+        <property name="hostName" value="127.0.0.1"/>
+        <property name="port" value="6379"/>
+        <!--<property name="password" value="${redis.pass}" />-->
+        <!--<property name="timeout" value="${redis.timeout}" />-->
+        <!--<property name="database" value="${redis.default.db}"></property>-->
+        <constructor-arg index="0" ref="jedisPoolConfig"/>
+    </bean>
+
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
+        <property name="connectionFactory" ref="jedisConnectionFactory"/>
+    </bean>
 
 </beans>

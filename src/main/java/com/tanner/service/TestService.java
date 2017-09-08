@@ -1,4 +1,4 @@
-package com.tanner.com.tanner.service;
+package com.tanner.service;
 
 import com.tanner.model.testmodel.User;
 
