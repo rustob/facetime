@@ -6,13 +6,13 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
     <!-- 扫描dao,service -->
     <context:component-scan base-package="com.tanner"/>
     <context:annotation-config/>
     <tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven>
 
     <context:property-placeholder location="classpath:spring-jdbc.properties"/>
-    <context:property-placeholder location="classpath:redis.properties"/>
 
     <!-- 配置数据源 -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
@@ -38,14 +38,6 @@
         <property name="dataSource" ref="dataSource"></property>
         <property name="configLocation" value="classpath:mybatis-config.xml"></property>
     </bean>
-    <!--<bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">-->
-    <!--<property name="mapperInterface" value="com.tanner.dao.testdao.UserMapper"></property>-->
-    <!--<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>-->
-    <!--</bean>-->
-    <!--<bean id="userService" class="com.tanner.com.tanner.service.TestServiceImpl">-->
-    <!--<property name="userMapper" ref="userMapper"></property>-->
-    <!--</bean>-->
-
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
