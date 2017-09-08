@@ -6,8 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.ListOperations;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -56,12 +54,8 @@ public class Application {
         RedisTemplate<String, String> template
                 = context.getBean("redisTemplate", RedisTemplate.class);
         boolean result =
-                template.execute(new RedisCallback<Boolean>() {
-                    @Override
-                    public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
-                        return connection.setNX("fff".getBytes(), "dd".getBytes());
-                    }
-                });
+                template.execute((RedisCallback<Boolean>) connection ->
+                        connection.setNX("ok".getBytes(), "notok".getBytes()));
 
         System.out.println(result);
 
