@@ -1,7 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+
+    <typeAliases>
+        <!--POJO 类的所在package，默认类名为其Alias-->
+        <package name="com.tanner.model.testmodel"/>
+    </typeAliases>
+
     <mappers>
-        <mapper resource="UserDao.xml"/>
+        <mapper resource="com/tanner/dao/testdao/UserMapper.xml"/>
     </mappers>
 </configuration>
