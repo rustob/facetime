@@ -4,12 +4,16 @@
        xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <context:property-placeholder location="classpath:spring-jdbc.properties"/>
+    <!-- 扫描dao,service -->
+    <context:component-scan base-package="com.tanner"/>
+    <context:annotation-config/>
+
+    <!--<context:property-placeholder location="classpath:spring-jdbc.properties"/>-->
     <!-- 配置数据源 -->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
-        <property name="url" value="${jdbc_url}"/>
-        <property name="username" value="${jdbc_user}"/>
-        <property name="password" value="${jdbc_password}"/>
+        <property name="url" value="jdbc:mysql://10.1.11.1:3306/test"/>
+        <property name="username" value="choicedev"/>
+        <property name="password" value="1qaz2WSX"/>
         <property name="filters" value="stat"/>
         <property name="maxActive" value="20"/>
         <property name="initialSize" value="1"/>
@@ -28,11 +32,22 @@
         <property name="dataSource" ref="dataSource"></property>
         <property name="configLocation" value="classpath:mybatis-config.xml"></property>
     </bean>
-    <bean id="userDao" class="org.mybatis.spring.mapper.MapperFactoryBean">
-        <property name="mapperInterface" value="com.tanner.dao.testdao.UserMapper"></property>
+    <!--<bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">-->
+    <!--<property name="mapperInterface" value="com.tanner.dao.testdao.UserMapper"></property>-->
+    <!--<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>-->
+    <!--</bean>-->
+    <!--<bean id="userService" class="com.tanner.com.tanner.service.TestServiceImpl">-->
+    <!--<property name="userMapper" ref="userMapper"></property>-->
+    <!--</bean>-->
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+        <property name="basePackage" value="com.tanner"></property>
     </bean>
-    <bean id="userService" class="com.tanner.com.tanner.service.TestServiceImpl">
-        <property name="userMapper" ref="userDao"></property>
+
+    <!-- 事务管理  DataSourceTransactionManager-->
+    <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
     </bean>
+
 </beans>
