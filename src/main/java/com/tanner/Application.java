@@ -25,7 +25,7 @@ public class Application {
     public void hello() {
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
         TestService userService = (TestService) context.getBean("testServiceImpl");
-        User user = new User(666, "linuxea");
+        User user = new User(693, "linuxea");
         logger.info(user.toString());
         userService.addUser(user);
     }
