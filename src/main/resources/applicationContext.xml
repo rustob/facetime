@@ -52,10 +52,10 @@
 
     <!-- 连接池设置 -->
     <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
-        <!--<property name="maxActive" value="600" />-->
-        <!--<property name="maxIdle" value="300" />-->
-        <!--<property name="maxWait" value="1000" />-->
-        <!--<property name="testOnBorrow" value="true" />-->
+        <property name="maxTotal" value="600"/>
+        <property name="maxIdle" value="300"/>
+        <property name="MaxWaitMillis" value="1000"/>
+        <property name="testOnBorrow" value="true"/>
     </bean>
 
     <!-- spring data redis -->
